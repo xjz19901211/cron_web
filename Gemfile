@@ -3,9 +3,11 @@ source 'https://ruby.taobao.org'
 
 gem 'rails', '4.2.5'
 gem 'sqlite3'
+
 gem 'multi_json'
 gem 'oj'
 
+gem 'mine_setting'
 
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
@@ -22,8 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -1,5 +1,5 @@
 class Work < ActiveRecord::Base
-  CODE_LANGS = %w{javascript ruby shell}
+  CODE_LANGS = %w{ruby shell javascript}
 
   serialize :input_args, JSON
 
@@ -19,12 +19,14 @@ class Work < ActiveRecord::Base
     input_args.to_json
   end
 
+  def code=(text)
+    clean_text = text.lines.map {|l| l.gsub("\r\n", "\n") }.join
+    super(clean_text)
+  end
+
   def run
-    tasks.create!(output: "Start...\n").tap do |task|
-      task.with_lock do
-        task.output += "completed.\n"
-        task.save
-      end
+    tasks.create!.tap do |task|
+      CodeWorker.new(task).perform
     end
   end
 end

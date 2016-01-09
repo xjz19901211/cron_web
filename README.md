@@ -1,7 +1,10 @@
 Cron Web
 ========
 
-## require
+Run ruby, shell, javascript script in docker container.
+Support schedule with cron
+
+## Require
 
 * Ruby 2.2.3
 
@@ -9,3 +12,10 @@ Cron Web
 
 * SQL Database
 
+
+## Development
+
+```
+$ puma -C config/puma.rb
+
+```

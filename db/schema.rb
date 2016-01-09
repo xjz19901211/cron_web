@@ -16,9 +16,12 @@ ActiveRecord::Schema.define(version: 20160109041451) do
   create_table "tasks", force: :cascade do |t|
     t.integer  "work_id"
     t.text     "output"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "tasks", ["work_id"], name: "index_tasks_on_work_id"
 
   create_table "works", force: :cascade do |t|
     t.string   "name"

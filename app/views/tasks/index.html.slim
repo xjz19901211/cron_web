@@ -1,4 +1,6 @@
-h1 Listing tasks
+h1 #{@work.name} tasks
+
+= link_to 'Back work', work_path(@work)
 
 table
   thead
@@ -18,4 +20,3 @@ table
 
 br
 
-= link_to 'Back work', work_path(@work)

@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_work, only: [:index, :create]
+  before_action :set_task, only: [:show, :start_code, :run_code]
 
   # GET /tasks
   # GET /tasks.json
@@ -10,7 +11,14 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @task = Task.find(params[:id])
+  end
+
+  def start_code
+    render :start_code, layout: false, content_type: 'text/plain'
+  end
+
+  def run_code
+    render text: @task.run_code, layout: false, content_type: 'text/plain'
   end
 
   # POST /tasks
@@ -26,6 +34,10 @@ class TasksController < ApplicationController
 
   def set_work
     @work = Work.find(params[:work_id])
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
   end
 end
 

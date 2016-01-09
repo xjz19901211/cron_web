@@ -1,0 +1,43 @@
+gem source -r https://rubygems.org/
+gem source -a https://ruby.taobao.org/
+
+gem list | grep therubyracer || gem install -N therubyracer
+gem list | grep httparty || gem install -N httparty
+
+cd ~
+
+cat > starter.rb << RUBY_CODE_END
+require 'v8'
+require 'httparty'
+
+class Logger
+  def info(msg)
+    puts msg
+    STDOUT.flush
+  end
+end
+
+class HTTP
+  include HTTParty
+
+  %w{get post put delete head}.each do |method|
+    define_method(method) do |*args|
+      res = self.class.send(method, *args)
+      {
+        header: res.header.to_hash,
+        body: res.body
+      }
+    end
+  end
+end
+
+V8::Context.new do |cxt|
+  cxt['Logger'] = Logger.new
+  cxt['HTTP'] = HTTP.new
+
+  cxt.eval(File.read(ARGV.first))
+end
+RUBY_CODE_END
+
+ruby starter.rb /tmp/task_run_code
+
