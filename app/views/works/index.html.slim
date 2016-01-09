@@ -1,0 +1,27 @@
+h1 Listing works
+
+table
+  thead
+    tr
+      th Name
+      th Input args
+      th Code lang
+      th Code
+      th
+      th
+      th
+
+  tbody
+    - @works.each do |work|
+      tr
+        td = work.name
+        td = work.input_args
+        td = work.code_lang
+        td = work.code
+        td = link_to 'Show', work
+        td = link_to 'Edit', edit_work_path(work)
+        td = link_to 'Destroy', work, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Work', new_work_path

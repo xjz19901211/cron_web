@@ -1,0 +1,61 @@
+= form_for @work do |f|
+  - if @work.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@work.errors.count, "error")} prohibited this work from being saved:"
+      ul
+        - @work.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :input_args
+
+    table#input_args_table.input_args
+      thead
+        tr
+          th Name
+          th Value
+          th 
+
+      tbody
+        - (@work.input_args.to_a + [['', '']]).each_with_index do |kv, index|
+          - key, val = kv
+
+          tr
+            td
+              input type='text' name='work[input_args][][key]' value=key
+            td
+              input type='text' name='work[input_args][][val]' value=val
+            td
+              a#del_input_args href='javascript: void(0)' Del input args
+
+    a#add_input_args href='javascript: void(0)' Add input args
+
+    javascript:
+      (function(){
+        var $table = $('#input_args_table');
+        var template = $table.find('tr:last').remove().html();
+
+        $('#add_input_args').click(function(){
+          $table.append('<tr>' + template + '<tr>');
+        }).click();
+
+        $table.on('click', '#del_input_args', function(event){
+          $(event.target).parents('tr').remove();
+        });
+      }());
+
+  .field
+    = f.label :code_lang
+
+    = f.select :code_lang do
+      = options_for_select Work::CODE_LANGS.map {|val| [val, val] }, @work.code_lang
+
+  .field
+    = f.label :code
+    = f.text_area :code
+
+  .actions = f.submit

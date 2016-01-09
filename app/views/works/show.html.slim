@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @work.name
+p
+  strong Input args:
+  = @work.input_args
+p
+  strong Code lang:
+  = @work.code_lang
+p
+  strong Code:
+
+  code
+    pre = @work.code
+
+= link_to 'Run', work_tasks_path(@work), method: :post
+'|
+= link_to 'Tasks', work_tasks_path(@work)
+'|
+= link_to 'Edit', edit_work_path(@work)
+'|
+= link_to 'Back', works_path

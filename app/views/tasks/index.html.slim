@@ -1,0 +1,21 @@
+h1 Listing tasks
+
+table
+  thead
+    tr
+      th Work
+      th Start at
+      th Output
+      th
+
+  tbody
+    - @tasks.each do |task|
+      tr
+        td = task.work_id
+        td = task.created_at
+        td = task.output
+        td = link_to 'Show', task
+
+br
+
+= link_to 'Back work', work_path(@work)

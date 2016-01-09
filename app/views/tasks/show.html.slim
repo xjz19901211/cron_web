@@ -1,0 +1,10 @@
+p#notice = notice
+
+p
+  strong Work:
+  = @task.work_id
+p
+  strong Output:
+  = @task.output
+
+= link_to 'Back', work_tasks_path(@task.work_id)
