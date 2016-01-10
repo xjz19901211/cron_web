@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :schedules
   resources :works do
 
     resources :tasks, only: [:index, :show, :create], shallow: true do

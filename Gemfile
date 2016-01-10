@@ -2,12 +2,17 @@
 source 'https://ruby.taobao.org'
 
 gem 'rails', '4.2.5'
+
+gem 'redis'
 gem 'sqlite3'
 
 gem 'multi_json'
 gem 'oj'
 
 gem 'mine_setting'
+
+gem 'sidekiq', '~> 4.0.1'
+gem 'sidekiq-cron', '~> 0.4.2'
 
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
@@ -42,5 +47,9 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem 'database_cleaner'
 end
 

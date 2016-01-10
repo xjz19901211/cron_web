@@ -1,0 +1,15 @@
+
+default: &default
+  worker_image: ruby:cron_web # or ruby:2.2.3
+  task_timeout: <%= 15.minutes %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  task_timeout: <%= 3.seconds %>
+ 
+production:
+  <<: *default
+

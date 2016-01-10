@@ -2,6 +2,7 @@ class CreateTasks < ActiveRecord::Migration
   def change
     create_table :tasks do |t|
       t.integer :work_id, index: true
+      t.integer :schedule_id, index: true
       t.text :output
       t.string :status
 

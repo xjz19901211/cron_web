@@ -3,6 +3,7 @@ class Work < ActiveRecord::Base
 
   serialize :input_args, JSON
 
+  validates :name, presence: true, length: {in: 2..128}
   validates :input_args_json, length: {maximum: 2.kilobytes}
   validates :code_lang, inclusion: {in: CODE_LANGS}
   validates :code, length: { maximum: 8.kilobytes }

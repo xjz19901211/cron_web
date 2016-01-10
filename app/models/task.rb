@@ -4,6 +4,7 @@ class Task < ActiveRecord::Base
   validates :status, inclusion: {in: ALL_STATUS}
 
   belongs_to :work
+  belongs_to :schedule
 
 
   def initialize(attrs = {})

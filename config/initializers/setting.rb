@@ -1,2 +1,2 @@
-require 'setting'
+require 'settings'
 

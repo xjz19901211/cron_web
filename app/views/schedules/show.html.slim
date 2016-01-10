@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @schedule.name
+p
+  strong Work:
+  = @schedule.work_id
+p
+  strong Cron:
+  = @schedule.cron
+
+= link_to 'Edit', edit_schedule_path(@schedule)
+'|
+= link_to 'Back', schedules_path
