@@ -25,4 +25,40 @@ RSpec.describe Schedule, type: :model do
       expect { schedule.cron = '2016-1-1 0:0:0' }.to change(schedule, :valid?).to(true)
     end
   end
+
+  describe 'schedule' do
+    it 'should create sidekiq-cron job, after create' do
+      expect {
+        schedule
+      }.to change { Sidekiq::Cron::Job.count }.by(1)
+
+      job = Sidekiq::Cron::Job.all.first
+      expect(job.name).to eq(schedule.cron_id)
+      expect(job.cron).to eq(schedule.cron)
+      expect(job.klass).to eq('StartTaskWorker')
+      expect(job.args).to eq([schedule.id])
+    end
+
+    it 'should update sidekiq-cron job, after update' do
+      schedule
+
+      expect {
+        schedule.update(cron: '20 * * * *')
+      }.to change { Sidekiq::Cron::Job.count }.by(0)
+
+      job = Sidekiq::Cron::Job.all.first
+      expect(job.name).to eq(schedule.cron_id)
+      expect(job.cron).to eq(schedule.cron)
+      expect(job.klass).to eq('StartTaskWorker')
+      expect(job.args).to eq([schedule.id])
+    end
+
+    it 'should destroy sidekiq-cron job, after destroy' do
+      schedule
+
+      expect {
+        schedule.destroy
+      }.to change { Sidekiq::Cron::Job.count }.by(-1)
+    end
+  end
 end

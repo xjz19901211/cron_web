@@ -5,6 +5,7 @@ default: &default
 
 development:
   <<: *default
+  min_cron_interval: <%= 1.minutes %>
 
 test:
   <<: *default

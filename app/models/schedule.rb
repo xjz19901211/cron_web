@@ -1,10 +1,14 @@
 class Schedule < ActiveRecord::Base
   validates :name, presence: true, length: {in: 2..128}
+  validate :cron_validator
 
   belongs_to :work
   has_many :tasks
 
-  validate :cron_validator
+  after_commit :create_cron_job, on: :create
+  after_commit :update_cron_job, on: :update
+  after_commit :destroy_cron_job, on: :destroy
+
 
   def initialize(attrs = {})
     super(attrs)
@@ -31,5 +35,24 @@ class Schedule < ActiveRecord::Base
     if parsed_cron.frequency < min_interval
       errors.add(:cron, "Interval cannot less #{min_interval} seconds")
     end
+  end
+
+  def create_cron_job
+    Sidekiq::Cron::Job.create({
+      name: cron_id,
+      cron: cron,
+      class: 'StartTaskWorker',
+      args: [id]
+    })
+  end
+
+  def update_cron_job
+    job = Sidekiq::Cron::Job.find(cron_id)
+    job.cron = cron
+    job.save
+  end
+
+  def destroy_cron_job
+    Sidekiq::Cron::Job.destroy(cron_id)
   end
 end
