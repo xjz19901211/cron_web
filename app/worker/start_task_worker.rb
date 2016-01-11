@@ -4,7 +4,7 @@ class StartTaskWorker
 
   def perform(schedule_id)
     schedule = Schedule.find(schedule_id)
-    task = schedule.work.tasks.create!
+    task = schedule.work.tasks.create!(schedule_id: schedule.id)
     CodeWorker.new(task).perform
   end
 end

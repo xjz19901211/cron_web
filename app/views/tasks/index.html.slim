@@ -5,6 +5,7 @@ h1 #{@work.name} tasks
 table
   thead
     tr
+      th Schedule
       th Start at
       th Output
       th
@@ -12,6 +13,7 @@ table
   tbody
     - @tasks.each do |task|
       tr
+        td = task.schedule ? task.schedule.name : nil
         td = task.created_at
         td
           pre = task.output.lines[0...5].join
