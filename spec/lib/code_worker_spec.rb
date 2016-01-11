@@ -134,7 +134,7 @@ RSpec.describe CodeWorker do
       exec_cmd_method = @exec_cmd_method
       allow(code_worker).to receive(:exec_cmd) do |cmd|
         if cmd =~ /^docker run/
-          exec_cmd_method.call(cmd.split('curl').first + 'echo hello')
+          exec_cmd_method.call(cmd.split('curl').first + Shellwords.escape('echo hello'))
         else
           exec_cmd_method.call(cmd)
         end

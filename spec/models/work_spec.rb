@@ -49,24 +49,4 @@ RSpec.describe Work, type: :model do
       expect(work.code).to eq(code + "\n")
     end
   end
-
-  describe '#run' do
-    it 'should create task' do
-      allow_any_instance_of(CodeWorker).to receive(:perform)
-
-      expect {
-        task = work.run
-        expect(task).to be_a(Task)
-        expect(task.work_id).to eq(work.id)
-      }.to change { work.reload.tasks.count }.by(1)
-    end
-
-    it 'should perform task with CodeWorker' do
-      code_work = double(perform: true)
-      expect(CodeWorker).to receive(:new).with(kind_of(Task)).and_return(code_work)
-      expect(code_work).to receive(:perform)
-
-      work.run
-    end
-  end
 end

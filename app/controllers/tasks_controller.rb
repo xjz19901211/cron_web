@@ -24,7 +24,8 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = @work.run
+    @task = @work.tasks.create!
+    CodeWorker.new(@task).perform
 
     redirect_to @task, notice: 'Task was successfully created.'
   end

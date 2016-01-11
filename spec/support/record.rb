@@ -16,7 +16,7 @@ module Support
     end
 
     def create_schedule(name, ext_attrs = {})
-      attrs = {name: name}.with_indifferent_access
+      attrs = {name: name, cron: '*/10 * * * *'}.with_indifferent_access
       attrs.merge!(attrs)
       attrs[:work] = create_work('aaaa') unless attrs[:work] || attrs[:work_id]
 

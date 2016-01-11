@@ -8,7 +8,7 @@ RSpec.describe SchedulesController, type: :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/schedules/new").to route_to("schedules#new")
+      expect(:get => "/works/1/schedules/new").to route_to("schedules#new", work_id: '1')
     end
 
     it "routes to #show" do
@@ -16,11 +16,11 @@ RSpec.describe SchedulesController, type: :routing do
     end
 
     it "routes to #edit" do
-      expect(:get => "/schedules/1/edit").to route_to("schedules#edit", :id => "1")
+      expect(:get => "/schedules/1/edit").to route_to("schedules#edit", id: "1")
     end
 
     it "routes to #create" do
-      expect(:post => "/schedules").to route_to("schedules#create")
+      expect(:post => "/works/1/schedules").to route_to("schedules#create", work_id: '1')
     end
 
     it "routes to #update via PUT" do

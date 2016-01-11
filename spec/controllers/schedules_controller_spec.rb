@@ -1,5 +1,6 @@
 RSpec.describe SchedulesController, type: :controller do
   let!(:schedule) { create_schedule('aa') }
+  let(:work) { schedule.work }
 
   describe "GET #index" do
     set_req_args do
@@ -36,7 +37,7 @@ RSpec.describe SchedulesController, type: :controller do
       {
         action: :new,
         method: :get,
-        params: {}
+        params: {work_id: work.id}
       }
     end
 
@@ -67,7 +68,7 @@ RSpec.describe SchedulesController, type: :controller do
         {
           action: :create,
           method: :post,
-          params: {schedule: {name: 'new_name', cron: '* * * * *'}}
+          params: {work_id: work.id, schedule: {name: 'new_name', cron: '*/12 * * * *'}}
         }
       end
       request_should_redirect_to { assigns(:schedule) }
@@ -83,7 +84,8 @@ RSpec.describe SchedulesController, type: :controller do
         schedule = assigns(:schedule)
         expect(schedule).to be_a(Schedule)
         expect(schedule).to be_persisted
-        expect(schedule.attributes.values_at(*%w{name cron})).to eq(['new_name', '* * * * *'])
+        expect(schedule.attributes.values_at(*%w{name cron})).to \
+          eq(['new_name', '*/12 * * * *'])
       end
     end
 
@@ -92,7 +94,7 @@ RSpec.describe SchedulesController, type: :controller do
         {
           action: :create,
           method: :post,
-          params: {schedule: {name: 'a', cron: '*** *'}}
+          params: {work_id: work.id, schedule: {name: 'a', cron: '* * * * *'}}
         }
       end
       request_should_render_template { 'new' }

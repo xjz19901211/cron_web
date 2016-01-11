@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :schedules
+  resources :schedules, only: [:index]
+
   resources :works do
+    resources :schedules, shallow: true
 
     resources :tasks, only: [:index, :show, :create], shallow: true do
       member do
@@ -10,8 +12,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   root 'works#index'
-
 end
 

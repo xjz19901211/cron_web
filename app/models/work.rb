@@ -10,6 +10,7 @@ class Work < ActiveRecord::Base
 
 
   has_many :tasks
+  has_many :schedules
 
   def initialize(attrs = {})
     super(attrs)
@@ -23,11 +24,5 @@ class Work < ActiveRecord::Base
   def code=(text)
     clean_text = text.lines.map {|l| l.gsub("\r\n", "\n") }.join
     super(clean_text)
-  end
-
-  def run
-    tasks.create!.tap do |task|
-      CodeWorker.new(task).perform
-    end
   end
 end

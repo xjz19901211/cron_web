@@ -13,5 +13,16 @@ RSpec.describe Schedule, type: :model do
       expect { schedule.name = '22' }.to change(schedule, :valid?).to(true)
       expect { schedule.name = '1' * 129 }.to change(schedule, :valid?).to(false)
     end
+
+    it 'should not save invalid cron' do
+      expect { schedule.cron = '* 123' }.to change(schedule, :valid?).to(false)
+    end
+
+    it 'should not save cron if interval < 10.minutes ' do
+      schedule.cron = '123'
+      expect(schedule.valid?).to eq(true)
+      expect { schedule.cron = '* * * * *' }.to change(schedule, :valid?).to(false)
+      expect { schedule.cron = '2016-1-1 0:0:0' }.to change(schedule, :valid?).to(true)
+    end
   end
 end

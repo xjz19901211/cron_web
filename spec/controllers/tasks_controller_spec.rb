@@ -90,6 +90,14 @@ RSpec.describe TasksController, type: :controller do
       expect(task).to be_persisted
       expect(task.attributes.values_at(*%w{work_id status})).to eql([work.id, 'pending'])
     end
+
+    it "should create CodeWorker and perform" do
+      cw = double(perform: true)
+      expect(CodeWorker).to receive(:new).with(kind_of(Task)).and_return(cw)
+      expect(cw).to receive(:perform)
+
+      send_req
+    end
   end
 end
 
