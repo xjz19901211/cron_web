@@ -48,8 +48,17 @@ class Schedule < ActiveRecord::Base
 
   def update_cron_job
     job = Sidekiq::Cron::Job.find(cron_id)
-    job.cron = cron
-    job.save
+    if job
+      job.cron = cron
+      job.save
+    else
+      Sidekiq::Cron::Job.create({
+        name: cron_id,
+        cron: cron,
+        class: 'StartTaskWorker',
+        args: [id]
+      })
+    end
   end
 
   def destroy_cron_job

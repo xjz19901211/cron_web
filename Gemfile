@@ -2,6 +2,7 @@
 source 'https://ruby.taobao.org'
 
 gem 'rails', '4.2.5'
+gem 'sinatra', require: nil
 
 gem 'redis'
 gem 'sqlite3'

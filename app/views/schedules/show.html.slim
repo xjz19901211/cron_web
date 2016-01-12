@@ -10,8 +10,6 @@ p
   strong Cron:
   = @schedule.cron
 
-= link_to 'Tasks', work_tasks_path(@schedule.work_id)
-'|
 = link_to 'Edit', edit_schedule_path(@schedule)
 '|
 = link_to 'Back', schedules_path

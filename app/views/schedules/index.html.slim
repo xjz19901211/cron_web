@@ -9,6 +9,7 @@ table
       th
       th
       th
+      th
 
   tbody
     - @schedules.each do |schedule|
@@ -17,6 +18,7 @@ table
         td = schedule.work.name
         td = schedule.cron
         td = link_to 'Show', schedule
+        td = link_to 'Tasks', work_tasks_path(schedule.work_id)
         td = link_to 'Edit', edit_schedule_path(schedule)
         td = link_to 'Destroy', schedule, data: {:confirm => 'Are you sure?'}, :method => :delete
 
