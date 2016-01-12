@@ -1,0 +1,35 @@
+
+h1 Choice a work
+
+= form_tag request.path, method: :get do
+  input type='hidden' name='redirect_to' value=params[:redirect_to]
+  input type='hidden' name='choice_view' value=params[:choice_view]
+
+  input type='text' name='q' value=params[:q]
+  = submit_tag 'search'
+
+
+
+table
+  thead
+    tr
+      th Name
+      th Code lang
+      th Code preview
+      th
+
+  tbody
+    - @works.each do |work|
+      tr
+        td
+          strong = work.name
+        td = work.code_lang
+        td
+          pre = work.code[0..128]
+        td
+          - redirect_to = params[:redirect_to].to_s + "?" + {work_id: work.id}.to_query
+          a href=redirect_to Select
+
+br
+
+= link_to 'New Work', new_work_path

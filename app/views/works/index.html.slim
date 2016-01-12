@@ -10,7 +10,6 @@ table
       th
       th
       th
-      th
 
   tbody
     - @works.each do |work|
@@ -23,7 +22,6 @@ table
           pre = work.code[0..128]
         td = link_to 'Show', work
         td = link_to 'Edit', edit_work_path(work)
-        td = link_to 'Schedule', new_work_schedule_path(work)
         td = link_to 'Destroy', work, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br

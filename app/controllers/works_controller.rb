@@ -5,6 +5,16 @@ class WorksController < ApplicationController
   # GET /works.json
   def index
     @works = Work.all
+    if params[:q].present?
+      str = params[:q].gsub('%', '')
+      @works = @works.where("name like ?", "%#{str}%")
+    end
+
+    if params[:choice_view].present?
+      render :choice_view
+    else
+      render :index
+    end
   end
 
   # GET /works/1
