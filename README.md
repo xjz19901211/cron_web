@@ -12,10 +12,21 @@ Support schedule with cron
 
 * SQL Database
 
+* Redis
+
 
 ## Development
 
-```
-$ puma -C config/puma.rb
+App:
 
-```
+    $ puma -C config/puma.rb
+
+Background Worker:
+
+    sidekiq
+
+## TODO
+
+* View Design
+* User
+* User Group
