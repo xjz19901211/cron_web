@@ -28,6 +28,20 @@ module Support
       {user_id: fetch_user('test').id}
     end
 
+    def signed_user
+      @signed_user
+    end
+
+    def sign_in(user)
+      @signed_user = user
+      session[:user_id] = user.to_param
+    end
+
+    def sign_out
+      @signed_user = nil
+      session.delete :user_id
+    end
+
 
     module ClassMethods
       def set_req_args(&block)

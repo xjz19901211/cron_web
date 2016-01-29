@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   VALID_EMAIL_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
-  validates :email, presence: true, format: VALID_EMAIL_REGEXP
+  validates :email, presence: true, uniqueness: true, format: VALID_EMAIL_REGEXP
   validates :role, presence: true, inclusion: {in: ALL_ROLES}
   validate :password_length_validator
 

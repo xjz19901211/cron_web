@@ -15,6 +15,12 @@ RSpec.describe User, type: :model do
       expect { user.email = 'as.as@adf.com' }.to change(user, :valid?).to(true)
     end
 
+    it 'should use uniquely email' do
+      user
+      u = User.new(email: 'hello@email.com')
+      expect { u.email = user.email }.to change(u, :valid?).to(false)
+    end
+
     it 'should use better password, length >= 8' do
       expect { user.password = '1234567' }.to change(user, :valid?).to(false)
       expect { user.password = '12345678' }.to change(user, :valid?).to(true)

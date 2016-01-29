@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.index :email
+      t.index :email, unique: true
     end
   end
 end

@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "assigns all users as @users" do
       send_req
-      expect(assigns(:users)).to eq([user])
+      expect(assigns(:users).sort_by(&:id)).to eq([signed_user, user].sort_by(&:id))
     end
   end
 
@@ -32,6 +32,8 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
+    before(:each) { sign_out }
+
     set_req_args do
       {
         action: :new,
@@ -62,6 +64,8 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "POST #create" do
+    before(:each) { sign_out }
+
     context "with valid params" do
       set_req_args do
         {

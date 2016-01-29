@@ -1,5 +1,5 @@
 module Support
-  module Record
+  module RecordHelper
     def create_work(name, ext_attrs = {})
       attrs = {name: name, code_lang: 'ruby', code: 'puts 1'}.with_indifferent_access
       attrs.merge!(ext_attrs)
@@ -28,6 +28,11 @@ module Support
       attrs.merge!(ext_attrs)
 
       User.create!(attrs)
+    end
+
+    def fetch_user(name, ext_attrs = {})
+      email = "#{name}@email.com"
+      User.where(email: email).first || create_user(name, ext_attrs)
     end
   end
 end
