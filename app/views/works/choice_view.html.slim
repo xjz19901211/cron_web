@@ -27,8 +27,12 @@ table
         td
           pre = work.code[0..128]
         td
-          - redirect_to = params[:redirect_to].to_s + "?" + {work_id: work.id}.to_query
-          a href=redirect_to Select
+          - case params[:redirect_to].to_s
+          - when 'new_schedule'
+            a href=new_work_schedule_path(work) Select
+          - else
+            - redirect_to = params[:redirect_to].to_s + "?" + {work_id: work.id}.to_query
+            a href=redirect_to Select
 
 br
 

@@ -22,4 +22,4 @@ table
         td = link_to 'Edit', edit_schedule_path(schedule)
         td = link_to 'Destroy', schedule, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-= link_to "New Schedule", works_path(redirect_to: new_schedule_path, choice_view: true)
+= link_to "New Schedule", works_path(redirect_to: :new_schedule, choice_view: true)

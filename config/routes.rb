@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :schedules, only: [:index, :new]
+  resources :users
+  resources :schedules, only: [:index]
 
   resources :works do
-    resources :schedules, expect: [:new], shallow: true
+    resources :schedules, except: [:index], shallow: true
 
     resources :tasks, only: [:index, :show, :create], shallow: true do
       member do

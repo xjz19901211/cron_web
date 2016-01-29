@@ -130,6 +130,7 @@ RSpec.describe CodeWorker do
       Settings.code_worker['task_timeout'] = origin_timeout
     end
 
+    # need docker
     it 'should update task status if finish', mock_docker: false do
       exec_cmd_method = @exec_cmd_method
       allow(code_worker).to receive(:exec_cmd) do |cmd|
