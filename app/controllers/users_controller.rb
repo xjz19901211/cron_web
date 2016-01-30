@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    render 'new', layout: false
   end
 
   # GET /users/1/edit
@@ -72,7 +73,7 @@ class UsersController < ApplicationController
 
   def user_params
     fields = if action_name == 'create'
-      [:password, :email]
+      [:email, :password, :password_confirmation]
     else
       [:password]
     end

@@ -1,5 +1,36 @@
-h1 New user
+doctype html
+html
+  head
+    title
+      | CronWeb Register
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'register', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
 
-== render 'form'
+  body
+    div.register_form
+      h2.text-center Register
 
-= link_to 'Back', users_path
+      = form_for @user, html: {class: 'form'} do |f|
+        - if @user.errors.any?
+          ul.error_explanation
+            - @user.errors.full_messages.each do |message|
+              li = message
+
+        .form-group
+          = f.label :email
+          = f.text_field :email, class: 'form-control'
+
+        .form-group
+          = f.label :password
+          = f.password_field :password, class: 'form-control'
+
+        .form-group
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, class: 'form-control'
+
+        .form-group.actions.pull-right
+          = f.submit class: 'btn btn-primary'
+
+          = link_to 'Login', new_session_path, class: 'login_btn'

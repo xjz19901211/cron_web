@@ -1,0 +1,22 @@
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      a.navbar-brand href=root_path Cron Web
+
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li class=active_class(%w{works})
+          = link_to "Works", works_path
+        li class=active_class(%w{schedules})
+          = link_to "Scheudles", schedules_path
+        li class=active_class(%w{users})
+          = link_to "Users", users_path
+
+        
+      ul.nav.navbar-nav.navbar-right
+        - if current_user
+          li = link_to "Logout", session_path(1), method: :delete
+        - else
+          li = link_to "Login", new_session_path
+
+

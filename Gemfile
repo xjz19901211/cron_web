@@ -16,6 +16,7 @@ gem 'sidekiq', '~> 4.0.1'
 gem 'sidekiq-cron', '~> 0.4.2'
 
 gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'therubyracer', platforms: :ruby

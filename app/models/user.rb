@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true, format: VALID_EMAIL_REGEXP
   validates :role, presence: true, inclusion: {in: ALL_ROLES}
+  validates :password, confirmation: true
   validate :password_length_validator
 
   def initialize(attrs = {})

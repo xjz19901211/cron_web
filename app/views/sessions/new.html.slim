@@ -1,15 +1,30 @@
+doctype html
+html
+  head
+    title
+      | CronWeb Register
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
 
-form action=sessions_path method='post'
-  input type='hidden' name='authenticity_token' value=form_authenticity_token
+  body
+    div.login_form
+      h2.text-center Login
 
-  .field
-    label for='user_email' Email
-    input type='email' id='user_email' name='email' requires=true value=params[:email]
+      form.form action=sessions_path method='post'
+        input type='hidden' name='authenticity_token' value=form_authenticity_token
 
-  .field
-    label for='user_password' Password
-    input type='password' id='user_password' name='password' requires=true value=params[:password]
-  
-  .field
-    input type='submit' name='Login'
+        .form-group
+          label for='user_email' Email
+          input.form-control type='email' id='user_email' name='email' requires=true value=params[:email]
+
+        .form-group
+          label for='user_password' Password
+          input.form-control type='password' id='user_password' name='password' requires=true value=params[:password]
+        
+        .actions.pull-right
+          input.btn.btn-primary type='submit' name='Login'
+
+          = link_to "register", new_user_path, class: 'register_btn'
 
