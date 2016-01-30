@@ -1,16 +1,18 @@
 
-h1 Choice a work
+h1.text-center Choice a work
 
-= form_tag request.path, method: :get do
-  input type='hidden' name='redirect_to' value=params[:redirect_to]
-  input type='hidden' name='choice_view' value=params[:choice_view]
+.pull-right
+  = form_tag request.path, method: :get do
+    input type='hidden' name='redirect_to' value=params[:redirect_to]
+    input type='hidden' name='choice_view' value=params[:choice_view]
 
-  input type='text' name='q' value=params[:q]
-  = submit_tag 'search'
+    .form-group.form-inline
+      input.form-control type='text' name='q' value=params[:q]
+      = submit_tag 'search', class: 'btn btn-default table-actions'
 
 
 
-table
+table.table.table-striped
   thead
     tr
       th Name
@@ -29,11 +31,8 @@ table
         td
           - case params[:redirect_to].to_s
           - when 'new_schedule'
-            a href=new_work_schedule_path(work) Select
+            a.btn.btn-default href=new_work_schedule_path(work) Select
           - else
             - redirect_to = params[:redirect_to].to_s + "?" + {work_id: work.id}.to_query
-            a href=redirect_to Select
+            a.btn.btn-default href=redirect_to Select
 
-br
-
-= link_to 'New Work', new_work_path

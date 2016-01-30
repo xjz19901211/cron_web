@@ -1,6 +1,8 @@
-h1 Listing works
 
-table
+.pull-right.table-actions
+  a.btn.btn-primary href=new_work_path New Work
+
+table.table.table-striped
   thead
     tr
       th Name
@@ -16,14 +18,18 @@ table
       tr
         td
           strong = work.name
-        td = work.input_args
+        td
+          ul
+            - work.input_args.each do |key, val|
+              li
+                code = key
+                |  
+                strong = val
         td = work.code_lang
         td
-          pre = work.code[0..128]
+          pre
+            code = work.code.lines[0..2].join
         td = link_to 'Show', work
         td = link_to 'Edit', edit_work_path(work)
         td = link_to 'Destroy', work, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to 'New Work', new_work_path

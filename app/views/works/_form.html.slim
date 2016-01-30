@@ -1,16 +1,14 @@
-= form_for @work do |f|
+= form_for @work, html: {class: 'form'} do |f|
   - if @work.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@work.errors.count, "error")} prohibited this work from being saved:"
-      ul
+      ul.error_explanation
         - @work.errors.full_messages.each do |message|
           li = message
 
-  .field
+  .form-group
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, class: 'form-control'
 
-  .field
+  .form-group
     = f.label :input_args
 
     table#input_args_table.input_args
@@ -26,9 +24,9 @@
 
           tr
             td
-              input type='text' name='work[input_args][][key]' value=key
+              input.form-control type='text' name='work[input_args][][key]' value=key
             td
-              input type='text' name='work[input_args][][val]' value=val
+              input.form-control type='text' name='work[input_args][][val]' value=val
             td
               a#del_input_args href='javascript: void(0)' Del input args
 
@@ -48,14 +46,16 @@
         });
       }());
 
-  .field
+  .form-group
     = f.label :code_lang
-
-    = f.select :code_lang do
+    = f.select :code_lang, nil, {}, class: 'form-control' do
       = options_for_select Work::CODE_LANGS.map {|val| [val, val] }, @work.code_lang
 
-  .field
+  .form-group
     = f.label :code
-    = f.text_area :code
+    = f.text_area :code, class: 'form-control'
 
-  .actions = f.submit
+  .form-group.actions.pull-right
+    = f.submit class: 'btn btn-primary'
+    a.left_space href=(@work.id ? work_path(@work) : works_path) Cancel
+

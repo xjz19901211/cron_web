@@ -1,17 +1,19 @@
-= form_for [@work, @schedule] do |f|
+= form_for [@work, @schedule], html: {class: 'form'} do |f|
   - if @schedule.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@schedule.errors.count, "error")} prohibited this schedule from being saved:"
-      ul
+      ul.error_explanation
         - @schedule.errors.full_messages.each do |message|
           li = message
 
-  .field
+  .form-group
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, class: 'form-control'
 
-  .field
+  .form-group
     = f.label :cron
-    = f.text_field :cron
+    = f.text_field :cron, class: 'form-control'
 
-  .actions = f.submit
+  .form-group.actions.pull-right
+    = f.submit class: 'btn btn-primary'
+
+    a.left_space href=(@schedule.id ? schedule_path(@schedule) : schedules_path) Cancel
+

@@ -1,8 +1,10 @@
-h1 #{@work.name} tasks
 
-= link_to 'Back work', work_path(@work)
+h1.text-center #{@work.name} tasks
 
-table
+.table-actions
+  = link_to 'Back work', work_path(@work)
+
+table.table.table-striped
   thead
     tr
       th Schedule

@@ -8,3 +8,23 @@
   }
 }
 
+.table-actions {
+  margin: 0 20px;
+}
+
+.form_box {
+  width: 50%;
+  margin: 0 auto;
+
+  .form-group {
+    margin-top: 30px;
+  }
+
+  form .actions {
+    a.left_space {
+      margin-left: 15px;
+    }
+  }
+
+}
+

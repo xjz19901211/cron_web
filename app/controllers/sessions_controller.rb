@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
   skip_before_filter :check_user_filter
 
   def new
-    render 'new', layout: false
+    if current_user
+      redirect_to root_path
+    else
+      render 'new', layout: false
+    end
   end
 
   def create
