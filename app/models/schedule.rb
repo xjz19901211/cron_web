@@ -2,6 +2,7 @@ class Schedule < ActiveRecord::Base
   validates :name, presence: true, length: {in: 2..128}
   validate :cron_validator
 
+  belongs_to :user
   belongs_to :work
   has_many :tasks
 

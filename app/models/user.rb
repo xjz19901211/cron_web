@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include BCrypt
 
-  ALL_ROLES = %w{normal admin}
+  ALL_ROLES = %w{guest normal admin}
 
   attr_accessor :password_length
 
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def initialize(attrs = {})
     super(attrs)
-    self.role ||= 'normal'
+    self.role ||= 'guest'
   end
 
   def password

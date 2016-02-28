@@ -171,26 +171,5 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
-
-  describe "DELETE #destroy" do
-    set_req_args do
-      {
-        action: :destroy,
-        method: :delete,
-        params: {id: user.to_param}
-      }
-    end
-
-    it "destroys the requested user" do
-      expect {
-        send_req
-      }.to change(User, :count).by(-1)
-    end
-
-    it "redirects to the users list" do
-      send_req
-      expect(response).to redirect_to(users_url)
-    end
-  end
 end
 

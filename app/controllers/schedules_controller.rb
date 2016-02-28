@@ -26,9 +26,11 @@ class SchedulesController < ApplicationController
   # POST /schedules.json
   def create
     @schedule = @work.schedules.new(schedule_params)
+    @schedule.user = current_user
 
     respond_to do |format|
       if @schedule.save
+        create_action_user_log(id: @schedule.id)
         format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render :show, status: :created, location: @schedule }
       else
@@ -43,6 +45,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
+        create_action_user_log(id: @schedule.id)
         format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
         format.json { render :show, status: :ok, location: @schedule }
       else
@@ -55,6 +58,7 @@ class SchedulesController < ApplicationController
   # DELETE /schedules/1
   # DELETE /schedules/1.json
   def destroy
+    create_action_user_log(id: @schedule.id)
     @schedule.destroy
     respond_to do |format|
       format.html { redirect_to schedules_url, notice: 'Schedule was successfully destroyed.' }

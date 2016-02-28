@@ -78,6 +78,7 @@ RSpec.describe WorksController, type: :controller do
         }
       end
       request_should_redirect { assigns(:work) }
+      include_examples 'create_action_user_log'
 
       it "creates a new Work" do
         expect {
@@ -92,6 +93,11 @@ RSpec.describe WorksController, type: :controller do
         expect(work).to be_persisted
         expect(work.attributes.values_at(*%w{name input_args code_lang code})).to \
           eq(['hello', {'k' => 'v'}, 'ruby', 'puts 1'])
+      end
+
+      it 'creator should eql current_user' do
+        send_req
+        expect(assigns(:work).reload.user).to eq(signed_user)
       end
     end
 
@@ -133,6 +139,7 @@ RSpec.describe WorksController, type: :controller do
         }
       end
       request_should_redirect_to { work }
+      include_examples 'create_action_user_log'
 
       it "updates the requested work" do
         send_req
@@ -177,6 +184,7 @@ RSpec.describe WorksController, type: :controller do
       }
     end
     request_should_redirect_to { works_url }
+    include_examples 'create_action_user_log'
 
     it "destroys the requested work" do
       expect {

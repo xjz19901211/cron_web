@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Action:
+  = @user_log.action
+p
+  strong Params:
+  = @user_log.params
+
+= link_to 'Edit', edit_user_log_path(@user_log)
+'|
+= link_to 'Back', user_logs_path

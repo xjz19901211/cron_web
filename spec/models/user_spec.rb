@@ -4,8 +4,8 @@ RSpec.describe User, type: :model do
   let(:user) { create_user('a') }
 
   describe 'default value' do
-    it 'role default eql normal' do
-      expect(User.new.role).to eq('normal')
+    it 'role default eql guest' do
+      expect(User.new.role).to eq('guest')
     end
   end
 

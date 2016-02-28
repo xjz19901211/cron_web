@@ -1,6 +1,6 @@
 RSpec.describe StartTaskWorker do
   let(:worker) { StartTaskWorker.new }
-  let(:schedule) { create_schedule('aa') }
+  let(:schedule) { create_schedule('aa', user: fetch_user('a')) }
 
   describe '#perform' do
     let(:cw) { double(perform: true) }
@@ -21,6 +21,11 @@ RSpec.describe StartTaskWorker do
     it 'should call code_worker#perform' do
       expect(cw).to receive(:perform)
       worker.perform(schedule.id)
+    end
+
+    it 'task.user should schedule user' do
+      worker.perform(schedule.id)
+      expect(Task.last.user).to eq(schedule.user)
     end
   end
 end

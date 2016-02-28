@@ -35,9 +35,11 @@ class WorksController < ApplicationController
   # POST /works.json
   def create
     @work = Work.new(work_params)
+    @work.user = current_user
 
     respond_to do |format|
       if @work.save
+        create_action_user_log(id: @work.id)
         format.html { redirect_to @work, notice: 'Work was successfully created.' }
         format.json { render :show, status: :created, location: @work }
       else
@@ -52,6 +54,7 @@ class WorksController < ApplicationController
   def update
     respond_to do |format|
       if @work.update(work_params)
+        create_action_user_log(id: @work.id)
         format.html { redirect_to @work, notice: 'Work was successfully updated.' }
         format.json { render :show, status: :ok, location: @work }
       else
@@ -64,6 +67,7 @@ class WorksController < ApplicationController
   # DELETE /works/1
   # DELETE /works/1.json
   def destroy
+    create_action_user_log(id: @work.id)
     @work.destroy
     respond_to do |format|
       format.html { redirect_to works_url, notice: 'Work was successfully destroyed.' }

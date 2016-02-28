@@ -72,6 +72,7 @@ RSpec.describe TasksController, type: :controller do
       }
     end
     request_should_redirect_to { assigns(:task) }
+    include_examples 'create_action_user_log'
 
     before :each do
       allow_any_instance_of(CodeWorker).to receive(:perform)
@@ -97,6 +98,11 @@ RSpec.describe TasksController, type: :controller do
       expect(cw).to receive(:perform)
 
       send_req
+    end
+
+    it 'creator should eql current user' do
+      send_req
+      expect(assigns(:task).reload.user).to eq(signed_user)
     end
   end
 end

@@ -1,0 +1,15 @@
+table.table.table-striped
+  thead
+    tr
+      th Action
+      th Params
+      th
+      th
+      th
+
+  tbody
+    - @user_logs.each do |user_log|
+      tr
+        td = user_log.action
+        td = user_log.params
+

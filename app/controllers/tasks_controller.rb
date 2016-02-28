@@ -2,10 +2,12 @@ class TasksController < ApplicationController
   before_action :set_work, only: [:index, :create]
   before_action :set_task, only: [:show, :start_code, :run_code]
 
+  skip_before_action :check_user_filter, only: [:start_code, :run_code]
+
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = @work.tasks.all
+    @tasks = @work.tasks.all.order(updated_at: :desc)
   end
 
   # GET /tasks/1
@@ -24,8 +26,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = @work.tasks.create!
+    @task = @work.tasks.create!(user: current_user)
     CodeWorker.new(@task).perform
+    create_action_user_log(id: @task.id)
 
     redirect_to @task, notice: 'Task was successfully created.'
   end

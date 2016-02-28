@@ -72,6 +72,7 @@ RSpec.describe SchedulesController, type: :controller do
         }
       end
       request_should_redirect_to { assigns(:schedule) }
+      include_examples 'create_action_user_log'
 
       it "creates a new Schedule" do
         expect {
@@ -86,6 +87,11 @@ RSpec.describe SchedulesController, type: :controller do
         expect(schedule).to be_persisted
         expect(schedule.attributes.values_at(*%w{name cron})).to \
           eq(['new_name', '*/12 * * * *'])
+      end
+
+      it 'creator should eql signed user' do
+        send_req
+        expect(assigns(:schedule).reload.user).to eq(signed_user)
       end
     end
 
@@ -116,6 +122,7 @@ RSpec.describe SchedulesController, type: :controller do
         }
       end
       request_should_redirect_to { schedule }
+      include_examples 'create_action_user_log'
 
       it "updates the requested schedule" do
         send_req
@@ -154,6 +161,7 @@ RSpec.describe SchedulesController, type: :controller do
       }
     end
     request_should_redirect_to { schedules_path }
+    include_examples 'create_action_user_log'
 
     it "destroys the requested schedule" do
       expect {

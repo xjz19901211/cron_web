@@ -21,6 +21,14 @@ class ApplicationController < ActionController::Base
     @current_user = nil
   end
 
+  def create_action_user_log(log_params = {})
+    create_user_log("#{action_name}-#{controller_name.singularize}", log_params)
+  end
+
+  def create_user_log(log_action, log_params)
+    UserLog.create!(action: log_action, params: log_params, user: current_user)
+  end
+
 
   private
 

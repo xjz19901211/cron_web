@@ -9,6 +9,7 @@ class Work < ActiveRecord::Base
   validates :code, length: { maximum: 8.kilobytes }
 
 
+  belongs_to :user
   has_many :tasks
   has_many :schedules
 

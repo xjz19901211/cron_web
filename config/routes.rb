@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :users
+  resources :user_logs, only: [:index]
   resources :sessions, only: [:new, :create, :destroy]
   resources :schedules, only: [:index]
 

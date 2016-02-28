@@ -34,6 +34,14 @@ module Support
       email = "#{name}@email.com"
       User.where(email: email).first || create_user(name, ext_attrs)
     end
+
+    def create_user_log(name, ext_attrs = {})
+      attrs = {action: name}.with_indifferent_access
+      attrs.merge!(ext_attrs)
+      attrs[:user] = fetch_user('log_user') unless attrs[:user] || attrs[:user_id]
+
+      UserLog.create!(attrs)
+    end
   end
 end
 
