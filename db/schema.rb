@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20160228061653) do
     t.string   "cron"
     t.text     "input_args"
     t.boolean  "active"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "schedules", ["deleted_at"], name: "index_schedules_on_deleted_at"
   add_index "schedules", ["user_id"], name: "index_schedules_on_user_id"
 
   create_table "tasks", force: :cascade do |t|
@@ -32,10 +34,12 @@ ActiveRecord::Schema.define(version: 20160228061653) do
     t.integer  "schedule_id"
     t.text     "output"
     t.string   "status"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "tasks", ["deleted_at"], name: "index_tasks_on_deleted_at"
   add_index "tasks", ["schedule_id"], name: "index_tasks_on_schedule_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
   add_index "tasks", ["work_id"], name: "index_tasks_on_work_id"
@@ -69,10 +73,12 @@ ActiveRecord::Schema.define(version: 20160228061653) do
     t.text     "input_args"
     t.string   "code_lang"
     t.text     "code"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "works", ["deleted_at"], name: "index_works_on_deleted_at"
   add_index "works", ["user_id"], name: "index_works_on_user_id"
 
 end

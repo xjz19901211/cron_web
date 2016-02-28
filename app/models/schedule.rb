@@ -1,4 +1,6 @@
 class Schedule < ActiveRecord::Base
+  acts_as_paranoid
+
   validates :name, presence: true, length: {in: 2..128}
   validate :cron_validator
 
@@ -8,7 +10,7 @@ class Schedule < ActiveRecord::Base
 
   after_commit :create_cron_job, on: :create
   after_commit :update_cron_job, on: :update
-  after_commit :destroy_cron_job, on: :destroy
+  after_destroy :destroy_cron_job
 
 
   def initialize(attrs = {})
@@ -39,6 +41,8 @@ class Schedule < ActiveRecord::Base
   end
 
   def create_cron_job
+    return if deleted?
+
     Sidekiq::Cron::Job.create({
       name: cron_id,
       cron: cron,
@@ -48,6 +52,8 @@ class Schedule < ActiveRecord::Base
   end
 
   def update_cron_job
+    return if deleted?
+
     job = Sidekiq::Cron::Job.find(cron_id)
     if job
       job.cron = cron

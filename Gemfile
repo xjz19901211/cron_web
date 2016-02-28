@@ -9,6 +9,7 @@ gem 'sqlite3'
 
 gem 'multi_json'
 gem 'oj'
+gem "paranoia", "~> 2.0"
 
 gem 'mine_setting'
 

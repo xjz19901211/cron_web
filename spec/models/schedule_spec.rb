@@ -53,7 +53,7 @@ RSpec.describe Schedule, type: :model do
       expect(job.args).to eq([schedule.id])
     end
 
-    it 'should destroy sidekiq-cron job, after destroy' do
+    it 'should destroy sidekiq-cron job, after destroy', focus: true do
       schedule
 
       expect {

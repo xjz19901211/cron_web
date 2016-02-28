@@ -165,8 +165,10 @@ RSpec.describe SchedulesController, type: :controller do
 
     it "destroys the requested schedule" do
       expect {
-        send_req
-      }.to change(Schedule, :count).by(-1)
+        expect {
+          send_req
+        }.to change(Schedule, :count).by(-1)
+      }.to_not change(Schedule.unscoped, :count)
     end
   end
 end

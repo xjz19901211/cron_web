@@ -188,8 +188,10 @@ RSpec.describe WorksController, type: :controller do
 
     it "destroys the requested work" do
       expect {
-        send_req
-      }.to change(Work, :count).by(-1)
+        expect {
+          send_req
+        }.to change(Work, :count).by(-1)
+      }.to_not change(Work.unscoped, :count)
     end
   end
 end

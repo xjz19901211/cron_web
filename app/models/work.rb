@@ -1,4 +1,6 @@
 class Work < ActiveRecord::Base
+  acts_as_paranoid
+
   CODE_LANGS = %w{ruby shell javascript}
 
   serialize :input_args, JSON
