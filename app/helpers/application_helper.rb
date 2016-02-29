@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   def include_action_js
-    if Rails.application.assets.find_asset("#{action_resource_filename}.js")
+    if Dir[JS_ROOT.join("#{action_resource_filename}.*")].count > 0
       javascript_include_tag action_resource_filename, 'data-turbolinks-track' => true
     else
       "".html_safe
@@ -53,7 +53,7 @@ module ApplicationHelper
   end
 
   def include_action_css
-    if Rails.application.assets.find_asset("#{action_resource_filename}.css")
+    if Dir[CSS_ROOT.join("#{action_resource_filename}.*")].count > 0
       stylesheet_link_tag action_resource_filename, {
         media: 'all', 'data-turbolinks-track' => true
       }
