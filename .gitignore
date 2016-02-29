@@ -20,3 +20,5 @@
 
 spec/examples.txt
 
+config/deploy/production.rb
+

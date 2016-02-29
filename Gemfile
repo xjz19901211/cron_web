@@ -5,7 +5,7 @@ gem 'rails', '4.2.5'
 gem 'sinatra', require: nil
 
 gem 'redis'
-gem 'sqlite3'
+gem 'mysql2'
 
 gem 'multi_json'
 gem 'oj'
@@ -35,14 +35,14 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
 
   gem 'rspec-rails'
+
+  gem 'sqlite3'
 end
 
 group :development do
@@ -51,6 +51,12 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rvm'
 end
 
 group :test do
