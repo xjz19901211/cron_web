@@ -4,6 +4,8 @@ lock '3.4.0'
 set :application, 'cron_web'
 set :repo_url, 'git@github.com:xjz19901211/cron_web.git'
 
+set :rails_env, :production
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

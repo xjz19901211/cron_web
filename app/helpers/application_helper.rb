@@ -24,16 +24,18 @@ module ApplicationHelper
       include_action_css
   end
 
+  JS_ROOT = Rails.root.join('app/assets/javascripts')
   def include_controller_js
-    if Rails.application.assets.find_asset("#{controller_resource_filename}.js")
+    if Dir[JS_ROOT.join("#{controller_resource_filename}.*")].count > 0
       javascript_include_tag controller_resource_filename, 'data-turbolinks-track' => true
     else
       "".html_safe
     end
   end
 
+  CSS_ROOT = Rails.root.join('app/assets/stylestyles')
   def include_controller_css
-    if Rails.application.assets.find_asset("#{controller_resource_filename}.css")
+    if Dir[CSS_ROOT.join("#{controller_resource_filename}.*")].count > 0
       stylesheet_link_tag controller_resource_filename, {
         media: 'all', 'data-turbolinks-track' => true
       }
