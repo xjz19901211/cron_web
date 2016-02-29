@@ -12,4 +12,5 @@ test:
  
 production:
   <<: *default
+  host_url: http://cron.only-x.com
 
