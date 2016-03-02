@@ -12,5 +12,4 @@ test:
  
 production:
   <<: *default
-  worker_image: ruby:2.2.3
 
