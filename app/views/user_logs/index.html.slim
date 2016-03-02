@@ -1,12 +1,14 @@
 table.table.table-striped
   thead
     tr
+      th User
       th Action
       th Params
 
   tbody
     - @user_logs.each do |user_log|
       tr
+        td = user_log.user.name
         td = user_log.action
         td = user_log.params
 
