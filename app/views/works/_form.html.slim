@@ -52,6 +52,25 @@
       = options_for_select Work::CODE_LANGS.map {|val| [val, val] }, @work.code_lang
 
   .form-group
+    strong Javascript:
+    pre
+      code
+        | INPUT_ARGS[input_args_name]
+        br
+        | HTTP.{get|post|put|delete|head|}(url, {body: {}, header: {}})
+        br
+        | Logger.info('string')
+
+    strong Ruby:
+    pre
+      code
+        | INPUT_ARGS[input_args_name]
+
+    strong Shell:
+    pre
+      code
+        | $input_args_name
+
     = f.label :code
     = f.text_area :code, class: 'form-control'
 
